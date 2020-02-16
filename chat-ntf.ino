@@ -3,12 +3,19 @@
 #include "KapChat.h"
 
 KapObjects* kapObjects;
+/*
+#ifdef DEBUG_ESP_PORT
+#define DEBUG_MSG(...) DEBUG_ESP_PORT.printf( __VA_ARGS__ )
+#define DEBUG_WEBSOCKETS(...) os_printf( __VA_ARGS__ )
+#else
+#define DEBUG_MSG(...)
+#endif
+*/
 
 void setup() {
   Serial.begin(115200);
   delay(1000);  
   Serial.println("\n\n\nHello, All");
-
   kapObjects = new KapObjects();
   kapObjects->_config = new KapConfig();
   kapObjects->_chat = new KapChat(kapObjects);

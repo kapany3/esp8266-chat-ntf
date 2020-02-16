@@ -95,7 +95,9 @@ bool KapNetwork::isConnected() {
 }
 
 void KapNetwork::checkConnection() {
-  if (WiFi.status() == WL_CONNECTED) {
+  if (_apMode == WIFI_AP) {
+    _kapObjects->_server->process();
+  } else if (WiFi.status() == WL_CONNECTED) {
     if (_disconnectTime != 0) {
       Serial.println("WiFi connected");
       _disconnectTime = 0;
@@ -103,8 +105,6 @@ void KapNetwork::checkConnection() {
     // Если в режиме точки доступа или подключен к роутеру
     if (_apMode == WIFI_STA) {
       _kapObjects->_chat->process();
-    } else {
-      _kapObjects->_server->process();
     }
   } else if (_apMode == WIFI_STA) {
     // Информировать об отключении раз в 60 секунд

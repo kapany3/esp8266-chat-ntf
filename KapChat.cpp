@@ -59,7 +59,7 @@ void KapChat::connect() {
     Serial.println("Connecting websocket");
     KapConfigParams* conf = _kapObjects->_config->getConfig();
 
-    _webSocket->begin(conf->server, 9341, "/", "worker");
+    _webSocket->beginSSL(conf->server, 9341, "/", "", "worker");
     _webSocket->onEvent(webSocketEvent);
     _webSocket->setReconnectInterval(5000);
     _webSocket->enableHeartbeat(15000, 3000, 2);
